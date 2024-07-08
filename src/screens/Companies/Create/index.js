@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import api from "../../../api/api";
 import Navbar from "../../../components/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CompanyForm from "../../../components/Form/CompanyForm";
+import Breadcrumb from "../../../components/Breadcrumb";
 
 const Add = () => {
   const [alert, setAlert] = useState({ show: false, message: "", variant: "" });
@@ -25,7 +26,9 @@ const Add = () => {
     <>
       <Navbar />
       <div className="container mt-5">
-        <Link to="/"> Voltar</Link>
+        <Breadcrumb
+          items={[{ label: "Home", to: "/" }, { label: "Cadastrar" }]}
+        />
       </div>
       <div className="container p-5 border rounded mt-2">
         <CompanyForm

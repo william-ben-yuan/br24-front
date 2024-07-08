@@ -1,7 +1,12 @@
 import React from "react";
 import InputField from "../../Input/InputField";
 
-const ContactForm = ({ formState, setFormState, contactIndex }) => {
+const ContactForm = ({
+  formState,
+  setFormState,
+  contactIndex,
+  formLoading,
+}) => {
   console.log(formState.contacts[contactIndex]);
   const updateContact = (event) => {
     const updatedContacts = [...formState.contacts];
@@ -13,9 +18,21 @@ const ContactForm = ({ formState, setFormState, contactIndex }) => {
     setFormState({ ...formState, contacts: updatedContacts });
   };
 
+  const handleRemoveContact = () => {
+    const updatedContacts = formState.contacts.filter(
+      (contact, index) => index !== contactIndex
+    );
+    setFormState({ ...formState, contacts: updatedContacts });
+  };
   return (
-    <div className="p-3 border rounded">
+    <div className="p-3 border rounded mb-3">
       <h4>Contato {contactIndex + 1}</h4>
+      <input
+        type="hidden"
+        value={formState.contacts[contactIndex].id}
+        name="id"
+        onChange={updateContact}
+      />
       <InputField
         label="Nome"
         id={`name-${contactIndex}`}
@@ -48,6 +65,16 @@ const ContactForm = ({ formState, setFormState, contactIndex }) => {
         onChange={updateContact}
         required={true}
       />
+      <div className="d-flex justify-content-end">
+        <button
+          type="button"
+          className="btn btn-danger"
+          disabled={formLoading}
+          onClick={handleRemoveContact}
+        >
+          Remover contato
+        </button>
+      </div>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Navbar from "../../../components/Navbar";
 import Alert from "../../../components/Alert";
 import InputField from "../../../components/Input/InputField";
 import CompanyForm from "../../../components/Form/CompanyForm";
+import Breadcrumb from "../../../components/Breadcrumb";
 
 const Edit = () => {
   const params = useParams();
@@ -23,10 +24,9 @@ const Edit = () => {
     fetchCompany();
   }, [params.id]);
 
-  const handleEdit = async (event) => {
-    event.preventDefault();
+  const handleEdit = async (formFields) => {
     try {
-      await api.put(`/companies/${params.id}`, company);
+      await api.put(`/companies/${params.id}`, formFields);
       navigate("/");
     } catch (error) {
       setAlert({
@@ -41,7 +41,7 @@ const Edit = () => {
     <>
       <Navbar />
       <div className="container mt-5">
-        <Link to="/"> Voltar</Link>
+        <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "Editar" }]} />
       </div>
       <div className="container p-5 border rounded mt-2">
         {loading ? (

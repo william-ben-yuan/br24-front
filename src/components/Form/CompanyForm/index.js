@@ -24,6 +24,21 @@ const CompanyForm = ({ initialFormState, onSubmit, buttonLabel, alert }) => {
     setLoading(false);
   };
 
+  const handleAddContact = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      contacts: [
+        ...prevState.contacts,
+        {
+          name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+        },
+      ],
+    }));
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -100,11 +115,20 @@ const CompanyForm = ({ initialFormState, onSubmit, buttonLabel, alert }) => {
                   formState={formState}
                   setFormState={setFormState}
                   contactIndex={index}
+                  formLoading={loading}
                 />
               ))}
           </div>
         </div>
-        <div className="d-flex">
+        <div className="d-flex justify-content-end">
+          <button
+            type="button"
+            className="btn btn-primary mt-3 me-3"
+            disabled={loading}
+            onClick={handleAddContact}
+          >
+            Adicionar contato
+          </button>
           <button
             type="submit"
             className="btn btn-primary mt-3"
@@ -119,7 +143,7 @@ const CompanyForm = ({ initialFormState, onSubmit, buttonLabel, alert }) => {
                 <span className="ms-2 sr-only">Aguarde...</span>
               </>
             ) : (
-              buttonLabel
+              "Salvar Empresa"
             )}
           </button>
         </div>

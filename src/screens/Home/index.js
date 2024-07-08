@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import api from "../../api/api";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal/Company/Delete";
 import Alert from "../../components/Alert";
 import "./style.css";
+import CompanyOffcanvas from "../../components/Offcanvas/Company";
+import { Offcanvas } from "bootstrap"; // Import specific Bootstrap JS component
 
 const Home = () => {
   const [companies, setCompanies] = useState([]);
@@ -12,6 +14,8 @@ const Home = () => {
   const [deletingCompany, setDeletingCompany] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const offcanvasRef = useRef(null);
+  const [currentCompany, setCurrentCompany] = useState(null);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -22,6 +26,8 @@ const Home = () => {
     };
 
     fetchCompanies();
+    const offcanvasElement = document.getElementById("companyOffcanvas");
+    offcanvasRef.value = new Offcanvas(offcanvasElement);
   }, []);
 
   const handleDelete = async (id) => {
@@ -48,6 +54,11 @@ const Home = () => {
     setShowModal(true);
   };
 
+  const handleOffcanvas = (company) => {
+    setCurrentCompany(company);
+    offcanvasRef.value.show();
+  };
+
   return (
     <>
       <Navbar />
@@ -72,6 +83,7 @@ const Home = () => {
           <table className="table table-striped">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Nome</th>
                 <th>Contatos</th>
                 <th>Ações</th>
@@ -80,7 +92,12 @@ const Home = () => {
             <tbody>
               {companies.map((company) => (
                 <tr key={company.id}>
-                  <td>{company.title}</td>
+                  <td>{company.id}</td>
+                  <td>
+                    <a href="#" onClick={() => handleOffcanvas(company)}>
+                      {company.title}
+                    </a>
+                  </td>
                   <td>
                     <ul className="mb-0">
                       {company.contacts &&
@@ -108,6 +125,7 @@ const Home = () => {
             </tbody>
           </table>
         )}
+        <CompanyOffcanvas company={currentCompany} />
         <Modal
           showModal={showModal}
           closeModal={() => setShowModal(false)}
