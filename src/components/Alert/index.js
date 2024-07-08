@@ -6,7 +6,7 @@ const Alert = ({ show, message, variant }) => {
   }
   return (
     <div className={`alert alert-${variant}`} role="alert">
-      {message.errors ? null : message}
+      {message.message ? message.message : message}
       <ul class="mb-0">
         {message.errors &&
           Object.entries(message.errors).map(([field, errors], index) => (

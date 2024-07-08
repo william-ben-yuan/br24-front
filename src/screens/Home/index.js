@@ -105,7 +105,7 @@ const Home = () => {
                     <ul className="mb-0">
                       {company.contacts &&
                         company.contacts.map((contact) => (
-                          <li key={contact.id}>{contact.name}</li>
+                          <li key={contact.id}>{contact.name} {contact.last_name}</li>
                         ))}
                     </ul>
                   </td>
