@@ -140,7 +140,7 @@ const CompanyForm = ({ initialFormState, onSubmit, buttonLabel, alert }) => {
                   className="spinner-border spinner-border-sm"
                   role="status"
                 ></div>
-                <span className="ms-2 sr-only">Aguarde...</span>
+                <span className="ms-2 sr-only">Salvando...</span>
               </>
             ) : (
               "Salvar Empresa"

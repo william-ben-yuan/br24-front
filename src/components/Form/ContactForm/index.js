@@ -7,7 +7,6 @@ const ContactForm = ({
   contactIndex,
   formLoading,
 }) => {
-  console.log(formState.contacts[contactIndex]);
   const updateContact = (event) => {
     const updatedContacts = [...formState.contacts];
     updatedContacts[contactIndex] = {

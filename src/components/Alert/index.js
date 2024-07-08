@@ -1,13 +1,12 @@
 import React from "react";
 
 const Alert = ({ show, message, variant }) => {
-  console.log(message);
   if (!show) {
     return null;
   }
   return (
     <div className={`alert alert-${variant}`} role="alert">
-      {message}
+      {message.errors ? null : message}
       <ul class="mb-0">
         {message.errors &&
           Object.entries(message.errors).map(([field, errors], index) => (

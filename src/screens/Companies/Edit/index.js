@@ -47,7 +47,7 @@ const Edit = () => {
         {loading ? (
           <>
             <div className="spinner-border spinner-border-sm" role="status" />
-            <span className="sr-only ms-2">Aguarde...</span>
+            <span className="sr-only ms-2">Carregando empresa...</span>
           </>
         ) : (
           <CompanyForm

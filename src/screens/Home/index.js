@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import api from "../../api/api";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
-import Modal from "../../components/Modal/Company/Delete";
 import Alert from "../../components/Alert";
 import "./style.css";
 import CompanyOffcanvas from "../../components/Offcanvas/Company";
 import { Offcanvas } from "bootstrap"; // Import specific Bootstrap JS component
+import DeleteCompanyModal from "../../components/Modal/Company/Delete";
 
 const Home = () => {
   const [companies, setCompanies] = useState([]);
@@ -14,6 +14,7 @@ const Home = () => {
   const [deletingCompany, setDeletingCompany] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const offcanvasRef = useRef(null);
   const [currentCompany, setCurrentCompany] = useState(null);
 
@@ -31,6 +32,7 @@ const Home = () => {
   }, []);
 
   const handleDelete = async (id) => {
+    setDeleteLoading(true);
     try {
       await api.delete(`/companies/${id}`);
       setCompanies(companies.filter((company) => company.id !== id));
@@ -46,6 +48,7 @@ const Home = () => {
         variant: "danger",
       });
     }
+    setDeleteLoading(false);
     setShowModal(false);
   };
 
@@ -77,7 +80,7 @@ const Home = () => {
         {loading ? (
           <>
             <div className="spinner-border spinner-border-sm" role="status" />
-            <span className="sr-only ms-2">Aguarde...</span>
+            <span className="sr-only ms-2">Carregando lista...</span>
           </>
         ) : (
           <table className="table table-striped">
@@ -126,11 +129,12 @@ const Home = () => {
           </table>
         )}
         <CompanyOffcanvas company={currentCompany} />
-        <Modal
+        <DeleteCompanyModal
           showModal={showModal}
           closeModal={() => setShowModal(false)}
           confirmAction={handleDelete}
           company={deletingCompany}
+          loading={deleteLoading}
         />
       </div>
     </>
