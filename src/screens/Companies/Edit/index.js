@@ -42,8 +42,6 @@ const Edit = () => {
       <Navbar />
       <div className="container mt-5">
         <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "Editar" }]} />
-      </div>
-      <div className="container p-5 border rounded mt-2">
         {loading ? (
           <>
             <div className="spinner-border spinner-border-sm" role="status" />

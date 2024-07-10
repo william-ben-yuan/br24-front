@@ -7,6 +7,7 @@ import "./style.css";
 import CompanyOffcanvas from "../../components/Offcanvas/Company";
 import { Offcanvas } from "bootstrap"; // Import specific Bootstrap JS component
 import DeleteCompanyModal from "../../components/Modal/Company/Delete";
+import Breadcrumb from "../../components/Breadcrumb";
 
 const Home = () => {
   const [companies, setCompanies] = useState([]);
@@ -65,77 +66,78 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="container p-5 border rounded mt-5">
-        <div className="d-flex justify-content-between align-items-center">
-          <h2>Lista de empresas</h2>
-          <Link to="/create" className="btn btn-primary mb-3">
-            Cadastrar Empresa
-          </Link>
-        </div>
-        <Alert
-          show={alert.show}
-          message={alert.message}
-          variant={alert.variant}
-        />
-        {loading ? (
-          <>
-            <div className="spinner-border spinner-border-sm" role="status" />
-            <span className="sr-only ms-2">Carregando lista...</span>
-          </>
-        ) : (
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Contatos</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {companies.map((company) => (
-                <tr key={company.id}>
-                  <td>{company.id}</td>
-                  <td>
-                    <a href="#" onClick={() => handleOffcanvas(company)}>
-                      {company.title}
-                    </a>
-                  </td>
-                  <td>
-                    <ul className="mb-0">
-                      {company.contacts &&
-                        company.contacts.map((contact) => (
-                          <li key={contact.id}>{contact.name} {contact.last_name}</li>
-                        ))}
-                    </ul>
-                  </td>
-                  <td>
-                    <Link
-                      to={`/edit/${company.id}`}
-                      className="btn btn-warning ms-2"
-                    >
-                      Editar
-                    </Link>
-                    <button
-                      onClick={() => openModal(company)}
-                      className="btn btn-danger ms-2"
-                    >
-                      Excluir
-                    </button>
-                  </td>
+      <div className="container mt-5">
+        <Breadcrumb items={[{ label: "Home" }]} />
+        <h2>Lista de empresas</h2>
+        <div className="p-5 border rounded bg-white shadow-sm">
+          <div className="d-flex justify-content-end align-items-center">
+            <Link to="/create" className="btn btn-light mb-3 shadow-sm">
+              <i className="fas fa-plus me-2"></i>Cadastrar Empresa
+            </Link>
+          </div>
+          <Alert
+            show={alert.show}
+            message={alert.message}
+            variant={alert.variant}
+          />
+          {loading ? (
+            <>
+              <div className="spinner-border spinner-border-sm" role="status" />
+              <span className="sr-only ms-2">Carregando lista...</span>
+            </>
+          ) : (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nome</th>
+                  <th>Contatos</th>
+                  <th>Ações</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        <CompanyOffcanvas company={currentCompany} />
-        <DeleteCompanyModal
-          showModal={showModal}
-          closeModal={() => setShowModal(false)}
-          confirmAction={handleDelete}
-          company={deletingCompany}
-          loading={deleteLoading}
-        />
+              </thead>
+              <tbody>
+                {companies.map((company) => (
+                  <tr key={company.id}>
+                    <td>{company.id}</td>
+                    <td>
+                      <a href="#" onClick={() => handleOffcanvas(company)}>
+                        {company.title}
+                      </a>
+                    </td>
+                    <td>
+                      <ul className="mb-0 p-0">
+                        {company.contacts &&
+                          company.contacts.map((contact) => (
+                            <li key={contact.id}>
+                              {contact.name} {contact.last_name}
+                            </li>
+                          ))}
+                      </ul>
+                    </td>
+                    <td>
+                      <Link to={`/edit/${company.id}`}>
+                        <i className="far fa-edit text-warning"></i>
+                      </Link>
+                      <i
+                        className="far fa-trash-alt text-danger ms-2"
+                        onClick={() => openModal(company)}
+                        role="button"
+                      ></i>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          <CompanyOffcanvas currentCompany={currentCompany} />
+          <DeleteCompanyModal
+            showModal={showModal}
+            closeModal={() => setShowModal(false)}
+            confirmAction={handleDelete}
+            company={deletingCompany}
+            loading={deleteLoading}
+          />
+        </div>
       </div>
     </>
   );

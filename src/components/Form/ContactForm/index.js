@@ -24,7 +24,7 @@ const ContactForm = ({
     setFormState({ ...formState, contacts: updatedContacts });
   };
   return (
-    <div className="p-3 border rounded mb-3">
+    <div className="p-3 border bg-white shadow-sm rounded mb-3">
       <h4>Contato {contactIndex + 1}</h4>
       <input
         type="hidden"
@@ -71,6 +71,7 @@ const ContactForm = ({
           disabled={formLoading}
           onClick={handleRemoveContact}
         >
+          <i className="far fa-trash-alt me-2" role="button"></i>
           Remover contato
         </button>
       </div>

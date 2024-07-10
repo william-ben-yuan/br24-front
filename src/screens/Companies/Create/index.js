@@ -29,8 +29,6 @@ const Add = () => {
         <Breadcrumb
           items={[{ label: "Home", to: "/" }, { label: "Cadastrar" }]}
         />
-      </div>
-      <div className="container p-5 border rounded mt-2">
         <CompanyForm
           initialFormState={{
             name: "",

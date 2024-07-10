@@ -37,22 +37,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/create-contact/:id"
-          element={
-            <PrivateRoute>
-              <CreateContact />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/edit-contact/:id"
-          element={
-            <PrivateRoute>
-              <EditContact />
-            </PrivateRoute>
-          }
-        />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
