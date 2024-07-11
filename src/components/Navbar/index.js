@@ -37,7 +37,7 @@ const Navbar = () => {
                 to="/login"
                 onClick={handleLogout}
               >
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i className="fas fa-sign-out-alt"></i> Logout
               </Link>
             </li>
           </ul>

@@ -7,7 +7,7 @@ const Alert = ({ show, message, variant }) => {
   return (
     <div className={`alert alert-${variant}`} role="alert">
       {message.message ? message.message : message}
-      <ul class="mb-0">
+      <ul className="mb-0">
         {message.errors &&
           Object.entries(message.errors).map(([field, errors], index) => (
             <li key={index}>

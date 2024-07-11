@@ -27,7 +27,7 @@ const CompanyOffcanvas = ({ currentCompany }) => {
           <div className="offcanvas-header">
             <h2 className="offcanvas-title" id="companyOffcanvasLabel">
               {loading ? (
-                <div class="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-center align-items-center">
                   <div
                     className="spinner-border spinner-border-sm"
                     role="status"
@@ -47,37 +47,53 @@ const CompanyOffcanvas = ({ currentCompany }) => {
           </div>
           <div className="offcanvas-body">
             {!loading ? (
-              <>
-                <div className="row">
-                  <div className="col-3">CNPJ:</div>
+              <div className="container">
+                <div className="row border-bottom">
+                  <div className="col-3 fw-bold">CNPJ:</div>
                   <div className="col-9">{company.cnpj}</div>
                 </div>
-                <div className="row">
-                  <div className="col-3">Endereço:</div>
+
+                <div className="row border-bottom">
+                  <div className="col-3 fw-bold">Email:</div>
+                  <div className="col-9">{company.email}</div>
+                </div>
+                <div className="row border-bottom">
+                  <div className="col-3 fw-bold">Endereço:</div>
                   <div className="col-9">{company.address}</div>
                 </div>
-                <div className="row">
-                  <div className="col-3">Cidade:</div>
+                <div className="row border-bottom">
+                  <div className="col-3 fw-bold">Cidade:</div>
                   <div className="col-9">{company.city}</div>
                 </div>
-                <div className="row">
-                  <div className="col-3">UF:</div>
+                <div className="row border-bottom">
+                  <div className="col-3 fw-bold">UF:</div>
                   <div className="col-9">{company.uf}</div>
                 </div>
-                <div className="row">
-                  <div className="col-3">Contatos:</div>
-                  <div className="col-9">
-                    <ul className="mb-0 p-0">
-                      {company.contacts &&
-                        company.contacts.map((contact) => (
-                          <li key={contact.id}>
-                            {contact.name} {contact.last_name}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
+                <div className="mt-5">
+                  {company.contacts &&
+                    company.contacts.map((contact, index) => (
+                      <div key={contact.id}>
+                        <h5 className="mt-2 fs-small">Contato {index + 1}</h5>
+                        <div className="row border-bottom">
+                          <div className="col-3 fw-bold">Nome:</div>
+                          <div className="col-9">{contact.name}</div>
+                        </div>
+                        <div className="row border-bottom">
+                          <div className="col-3 fw-bold">Sobrenome:</div>
+                          <div className="col-9">{contact.last_name}</div>
+                        </div>
+                        <div className="row border-bottom">
+                          <div className="col-3 fw-bold">Email:</div>
+                          <div className="col-9">{contact.email}</div>
+                        </div>
+                        <div className="row border-bottom">
+                          <div className="col-3 fw-bold">Telefone:</div>
+                          <div className="col-9">{contact.phone}</div>
+                        </div>
+                      </div>
+                    ))}
                 </div>
-              </>
+              </div>
             ) : null}
           </div>
         </>

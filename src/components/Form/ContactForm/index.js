@@ -68,7 +68,7 @@ const ContactForm = ({
         <button
           type="button"
           className="btn btn-danger"
-          disabled={formLoading}
+          disabled={formLoading || formState.contacts.length === 1}
           onClick={handleRemoveContact}
         >
           <i className="far fa-trash-alt me-2" role="button"></i>
